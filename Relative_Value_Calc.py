@@ -20,10 +20,10 @@ class RelativeValueCalc:
         power = float(sliced[5])
 
         out_string = "|"
-        p_cost = points + (power / self._PowerPerP)
+        p_cost = points + ((power * rps) / self._PowerPerP)
         relative_p_cost = round(p_cost / self._TC.Points, 2)
         out_string += str(relative_p_cost) + "x P cost|"
-        relative_damage = round(damage / self._TC.Damage, 2)
+        relative_damage = round((damage * rps) / (self._TC.Damage * self._TC.RPS), 2)
         out_string += str(relative_damage) + "x Damage|"
         relative_fire_rate = round(rps / self._TC.RPS, 2)
         out_string += str(relative_fire_rate) + "x Fire Rate|"
@@ -31,7 +31,7 @@ class RelativeValueCalc:
         out_string += str(relative_range) + "x Range|"
         relative_velocity = round(mvel / self._TC.MVel, 2)
         out_string += str(relative_velocity) + "x Muzzle Velocity|"
-        relative_power = round((power / self._PowerPerP) / (self._TC.Power / 3.33), 2)
+        relative_power = round(((power / self._PowerPerP) * rps) / ((self._TC.Power * self._TC.RPS) / 3.33), 2)
         out_string += str(relative_power) + "x Power P Contribution|"
         relative_value = round(self.relative_average(work_list=[relative_damage, relative_fire_rate, relative_range,
                                                                 relative_velocity, relative_power]), 2)
